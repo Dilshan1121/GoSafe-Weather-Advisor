@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoSafe Weather Advisor - Travel Intelligence Platform</title>
+    <link rel="stylesheet" href="body.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="url(#grad1)"/>
+                        <path d="M50 20 L65 45 L50 40 L35 45 Z" fill="white"/>
+                        <circle cx="50" cy="60" r="15" fill="white" opacity="0.3"/>
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>GoSafe</h1>
+                    <p class="tagline">Weather Advisor</p>
+                </div>
+            </div>
+            <p class="hero-description">Real-time travel intelligence powered by advanced weather analytics and global safety insights</p>
+       <div id="authStatusContainer" style="margin-left: auto; display: flex; align-items: center; color: white;">
+    <span id="welcomeMessage" style="margin-right: 15px; font-weight: 500;">Loading...</span>
+    <button type="button" id="logoutBtn" style="padding: 8px 15px; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 8px; color: white; cursor: pointer;">Log Out</button>
+</div>
+
+        </header>
+
+        <!-- Search Section with Glassmorphism -->
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Plan Your Journey</h2>
+                <p>Get instant weather forecasts and safety advisories for any destination worldwide</p>
+            </div>
+            
+            <form class="search-form" id="searchForm">
+                <div class="input-group">
+                    <div class="form-field">
+                        <label for="country">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                            Country
+                        </label>
+                        <input type="text" id="countryDisplay" placeholder="Country Name" required list="country-list">
+<input type="hidden" id="countryCode" name="countryCode">
+
+<datalist id="country-list"></datalist>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="city">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            City
+                        </label>
+                        <input type="text" id="city" placeholder="Enter city name (e.g., London)" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button" id="searchBtn">
+                    <span class="btn-text">Analyze Destination</span>
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <!-- Error Alert -->
+        <div class="alert alert-error" id="errorMsg">
+            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="errorText"></span>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-container" id="loading">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            <h3>Analyzing your destination</h3>
+            <p>Gathering weather data and safety intelligence...</p>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <!-- Weather Card -->
+            <div class="card weather-card">
+                <div class="card-header">
+                    <h3>
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        Weather Forecast
+                    </h3>
+                    <div class="card-badge" id="cityBadge">Loading...</div>
+                </div>
+
+                <div class="weather-main">
+                    <div class="weather-icon-large" id="weatherIcon">
+                        <div class="icon-glow"></div>
+                        ⛅
+                    </div>
+                    <div class="weather-temp-display">
+                        <div class="temp-value" id="temperature">--°</div>
+                        <div class="temp-unit">Celsius</div>
+                    </div>
+                </div>
+
+                <div class="weather-description" id="description">
+                    Checking weather conditions...
+                </div>
+
+                <div class="weather-metrics">
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                        </svg>
+                        <div class="metric-info">
+                            <span class="metric-label">Feels Like</span>
+                            <span class="metric-value" id="feelsLike">--°C</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                        </svg>
+                        <div class="metric-info">
+                            <span class="metric-label">Humidity</span>
+                            <span class="metric-value" id="humidity">--%</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+                        </svg>
+                        <div class="metric-info">
+                            <span class="metric-label">Wind Speed</span>
+                            <span class="metric-value" id="windSpeed">-- m/s</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        <div class="metric-info">
+                            <span class="metric-label">Pressure</span>
+                            <span class="metric-value" id="pressure">-- hPa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Advisory Card -->
+            <div class="card advisory-card">
+                <div class="card-header">
+                    <h3>
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Travel Safety Advisory
+                    </h3>
+                </div>
+
+                <div class="advisory-content">
+                    <div class="country-info">
+                        <div class="country-name" id="advisoryCountry">Loading...</div>
+                        <div class="safety-badge-container">
+                            <div class="safety-badge" id="safetyLevel">
+                                <span class="badge-dot"></span>
+                                <span class="badge-text">Analyzing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="safety-score">
+                        <div class="score-label">Safety Score</div>
+                        <div class="score-display">
+                            <div class="score-bar">
+                                <div class="score-fill" id="scoreBar"></div>
+                            </div>
+                            <div class="score-value" id="scoreValue">-/5</div>
+                        </div>
+                    </div>
+
+                    <div class="advisory-details">
+                        <h4>Advisory Information</h4>
+                        <div class="advisory-list" id="advisoryList">
+                            <div class="advisory-item loading-pulse">
+                                <div class="advisory-icon">ℹ️</div>
+                                <div>Loading advisory information...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="advisory-footer">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        <span>Last updated: <span id="lastUpdated">--</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Searches -->
+        <div class="recent-section" id="recentSection">
+            <div class="section-header">
+                <h3>
+                    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1 4 1 10 7 10"/>
+                        <polyline points="23 20 23 14 17 14"/>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                    </svg>
+                    Recent Searches
+                </h3>
+            </div>
+            <div class="recent-grid" id="recentList"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Powered by OpenWeatherMap & Travel Advisory APIs</p>
+        <p class="footer-note">GoSafe Weather Advisor © 2024 - IT41073 Service-Oriented Computing</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

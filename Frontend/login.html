@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoSafe Advisor - Login</title>
+    <link rel="stylesheet" href="body.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        /* Minimal CSS for the Login Page - Adjust as needed */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            text-align: center;
+            background: var(--glass-surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow-glass);
+        }
+        .login-form input {
+            width: 90%;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-main);
+        }
+        .login-btn, .register-btn {
+            width: 45%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .login-btn {
+            background-color: var(--primary);
+            color: white;
+            margin-right: 10px;
+        }
+        .register-btn {
+            background-color: var(--accent);
+            color: var(--bg-deep);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="logo-text">
+            <h1 style="font-size: 2.5rem;">GoSafe Login</h1>
+            <p class="tagline" style="margin-bottom: 25px;">Secure Access to Travel Intelligence</p>
+        </div>
+
+        <div id="g_id_onload"
+             data-client_id="230842243498-i3hl2k1elsrf4d8bl10hl36pe8lqeamg.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogleLogin"
+             data-auto_prompt="false">
+        </div>
+        
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="large"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-shape="rectangular"
+             data-logo_alignment="left">
+        </div>
+        
+        <p style="margin-top: 20px; font-size: 0.9em; color: var(--text-muted);">— OR —</p>
+
+        <form id="authForm" class="login-form">
+            <input type="text" id="authUsername" placeholder="Username" required>
+            <input type="password" id="authPassword" placeholder="Password" required>
+            <div id="loginErrorMsg" class="alert alert-error" style="display:none; margin-bottom: 15px;">
+                <span id="errorTextLogin"></span>
+            </div>
+
+            <button type="submit" id="loginBtn" class="login-btn">Log In</button>
+            <button type="button" id="registerBtn" class="register-btn">Register</button>
+        </form>
+    </div>
+    
+    <script src="auth.js?v=final"></script>
+    
+</body>
+</html>
